@@ -3,9 +3,9 @@
 (defrecord Cell [x y])
 
 (defn neighbors [cell]
-  (for [x-delta [-1 0 1]
-        y-delta (if (zero? x-delta) [-1 1] [-1 0 1])]
-    (->Cell (+ (:x cell) x-delta) (+ (:y cell) y-delta))))
+  (remove #(= cell %)
+          (for [x-delta [-1 0 1] y-delta [-1 0 1]]
+            (->Cell (+ (:x cell) x-delta) (+ (:y cell) y-delta)))))
 
 (defn step [board]
   (set (for [[loc n] (frequencies (mapcat neighbors board))
