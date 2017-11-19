@@ -1,8 +1,10 @@
 (ns game-of-life.core)
 
-(defn neighbors [[x y]]
+(defrecord Cell [x y])
+
+(defn neighbors [cell]
   (for [dx [-1 0 1] dy (if (zero? dx) [-1 1] [-1 0 1])]
-    [(+ x dx) (+ y dy)]))
+    (->Cell (+ (:x cell) dx) (+ (:y cell) dy))))
 
 (defn step [cells]
   (set (for [[loc n] (frequencies (mapcat neighbors cells))

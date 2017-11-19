@@ -4,11 +4,11 @@
 
 (deftest game-of-life-tests
   (testing "blinker oscillator"
-    (let [board #{[1 0] [1 1] [1 2]}]
+    (let [board #{(->Cell 1 0) (->Cell 1 1) (->Cell 1 2)}]
       (is (= board (first (play 1 board))))
-      (is (= #{[0 1] [1 1] [2 1]} (second (play 1 board))))
+      (is (= #{(->Cell 0 1) (->Cell 1 1) (->Cell 2 1)} (second (play 1 board))))
       (is (= board (nth (play 2 board) 2)))))
   (testing "block still life"
-    (let [block #{[1 1] [1 2] [2 1] [2 2]}]
+    (let [block #{(->Cell 1 1) (->Cell 1 2) (->Cell 2 1) (->Cell 2 2)}]
       (is (= block (first (play 1 block))))
       (is (= block (second (play 1 block)))))))
